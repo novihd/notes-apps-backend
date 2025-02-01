@@ -1,8 +1,8 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
-const { mapDBToModel } = require('../../utils');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const { mapDBToModel } = require('../../utils');
 
 class NotesService {
   constructor() {
@@ -45,7 +45,6 @@ class NotesService {
     }
 
     return result.rows.map(mapDBToModel)[0];
-
   }
 
   async editNoteById(id, { title, body, tags }) {
@@ -56,6 +55,7 @@ class NotesService {
     };
 
     const result = await this._pool.query(query);
+
     if (!result.rows.length) {
       throw new NotFoundError('Gagal memperbarui catatan. Id tidak ditemukan');
     }
